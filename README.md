@@ -28,6 +28,7 @@ A full-stack AI chat application built with Next.js, Supabase, OpenAI & NextAuth
 | Styling    | **Tailwind CSS**, ShadCN    |
 | Deployment | **Vercel**                  |
 
+
 app/
  ├── (auth)/
  ├── api/
@@ -42,6 +43,7 @@ components/
 lib/
 supabase/
 .env.local
+
 
 
 # NEXTAUTH -------------------------
