@@ -1,86 +1,33 @@
-AI Chat Platform – Full-Stack Next.js Application
-
-A production-ready AI chat platform built with Next.js 14, Server Actions, NextAuth, Supabase, OpenAI, and Vercel Edge Functions.
-This project provides real-time AI chat, session management, rate-limiting, authentication, favourites, history, and more.
-
+AI Chat Platform
+A full-stack AI chat application built with Next.js, Supabase, OpenAI & NextAuth
+<p align="center"> <img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js" /> <img src="https://img.shields.io/badge/OpenAI-API-green?logo=openai" /> <img src="https://img.shields.io/badge/Supabase-Database-3ECF8E?logo=supabase" /> <img src="https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel" /> <img src="https://img.shields.io/badge/License-MIT-blue" /> </p>
 ✨ Features
-🔐 Authentication
 
-Secure login using NextAuth
+🔐 Authentication using NextAuth
 
-Persistent sessions stored in Supabase or JWT
+💬 Real-time AI chat with OpenAI
 
-Protected server actions & API routes
+🧠 Chat session auto-generation
 
-💬 AI Chat System
+🗄️ Supabase DB storage for chats/messages
 
-Chat with OpenAI via server actions
+⭐ Favourites & history
 
-Stores conversations into Supabase
+🚫 Rate limiting per user
 
-Auto-session creation
+⚡ Server Actions for backend logic
 
-Chat pagination & streaming
+🎨 Modern UI with Tailwind + ShadCN
 
-Favourite chat marking
+| Category   | Tech                        |
+| ---------- | --------------------------- |
+| Framework  | **Next.js 14 (App Router)** |
+| AI         | **OpenAI (AI SDK)**         |
+| DB         | **Supabase / PostgreSQL**   |
+| Auth       | **NextAuth**                |
+| Styling    | **Tailwind CSS**, ShadCN    |
+| Deployment | **Vercel**                  |
 
-🧠 OpenAI Integration
-
-GPT-4 / GPT-4o / GPT-3.5 support
-
-AI responses through secure server actions
-
-No API keys exposed on the client
-
-📦 Backend
-
-REST API endpoints under /api/v1/chat
-
-Rate limiting per user
-
-Edge-optimized routes
-
-Secure database calls
-
-🗄️ Database (Supabase)
-
-Chat Sessions
-
-Chat Messages
-
-Favourites
-
-User Profiles
-
-⚡ UX & Frontend
-
-Modern UI with Tailwind CSS
-
-Responsive & fast
-
-Dark mode support
-
-Clean component architecture
-
-☁️ Deployment-Ready
-
-Built for Vercel
-
-Environment-variable driven
-
-Zero-config deployment
-
-🏗️ Tech Stack
-Category	Technology
-Framework	Next.js 14 (App Router)
-UI	Tailwind CSS, ShadCN
-Auth	NextAuth.js
-Database	Supabase
-AI	OpenAI API
-Deployment	Vercel
-Rate Limit	Custom middleware / KV Support
-Server Runtime	Edge & Node
-📁 Project Structure
 app/
  ├── (auth)/
  ├── api/
@@ -96,180 +43,84 @@ lib/
 supabase/
 .env.local
 
-🔧 Environment Variables
 
-Create .env.local:
-
-# ------------------------
-# NEXTAUTH
-# ------------------------
+# NEXTAUTH -------------------------
 NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-secret-here
+NEXTAUTH_SECRET=your-secret-key
 
-# ------------------------
-# OPENAI
-# ------------------------
+# OPENAI ---------------------------
 OPENAI_API_KEY=your-openai-key
 
-# ------------------------
-# SUPABASE
-# ------------------------
-SUPABASE_URL=https://xxxxxx.supabase.co
-SUPABASE_ANON_KEY=public-anon-key
-SUPABASE_SERVICE_KEY=service-role-key
+# SUPABASE -------------------------
+SUPABASE_URL=https://xxxxx.supabase.co
+SUPABASE_ANON_KEY=your-public-anon-key
+SUPABASE_SERVICE_KEY=your-service-role-key
 
-# ------------------------
-# RATE LIMIT
-# ------------------------
+# RATE LIMIT -----------------------
 RATE_LIMIT=5
 
-
-⚠️ Never commit .env.local.
-Use Vercel → Project → Settings → Environment Variables to add them for production.
-
-🚀 Local Development
-# Install dependencies
+Local Development
 npm install
-
-# Run locally
 npm run dev
 
-Verify APIs
-GET /api/v1/chat
-GET /api/v1/chat/rate-limit
-POST /api/v1/chat
+DEPLOYMENT
 
-☁️ Deploying to Vercel
-Step 1: Push to GitHub
 git add .
-git commit -m "deploy"
+git commit -m "Deploying to Vercel"
 git push origin main
 
-Step 2: Import Repo in Vercel
-Step 3: Add Environment Variables
+2. Import repo into Vercel
+3. Add all environment variables
 
-Copy everything from your .env.local.
+From .env.local
 
-Step 4: Update NEXTAUTH_URL after first deploy:
-NEXTAUTH_URL=https://yourproject.vercel.app
+4. After deployment, update:
+5. NEXTAUTH_URL=https://your-vercel-domain.vercel.app
 
-Step 5: Redeploy
+API ENDPOINTS
+POST   /api/v1/chat
+GET    /api/v1/chat
+GET    /api/v1/chat/rate-limit
+GET    /api/v1/chat/favourite
+POST   /api/v1/chat/favourite
+EXAMPLE SERVER ACTIONS 
+export async function createChatSession(formData: FormData) {
+  const message = formData.get("message") as string;
+  const userId = formData.get("userId") as string;
 
-Your project is now fully live. 🎉
+  const { text } = await generateText({
+    model: openai("gpt-4o-mini"),
+    system: TITLE_SYSTEM_PROMPT,
+    prompt: message,
+  });
 
-🗄️ Supabase Setup
-Enable Email Auth
+  const chat = await prisma.chat.create({
+    data: { userId, title: text },
+  });
 
-Dashboard → Authentication → Providers → Email + Password (Enable)
+  await prisma.message.create({
+    data: {
+      chatId: chat.id,
+      userId,
+      sender: "user",
+      content: message,
+      status: "PENDING",
+      orderIndex: 1,
+    },
+  });
 
-Configure URLs
-
-Authentication → URL Configurations:
-
-Site URL: https://yourproject.vercel.app
-Redirect URLs:
-- https://yourproject.vercel.app/api/auth/callback/*
-- http://localhost:3000/api/auth/callback/*
-
-Import Database Schema
-
-Create:
-
-chats table
-
-messages table
-
-favourites table
-
-users table
-
-(You can ask me for SQL schema — I’ll generate it.)
-
-🔌 API Overview
-POST /api/v1/chat
-
-Send a message → AI generates response → Saves to DB.
-
-GET /api/v1/chat
-
-Fetch paginated sessions.
-
-GET /api/v1/chat/rate-limit
-
-Check if user can send a message.
-
-GET /api/v1/chat/favourite
-
-Get all favourites.
-
-POST /api/v1/chat/favourite
-
-Toggle favourite status.
-
-🧪 Example Server Action
-export async function createChatSession(input: ChatInput) {
-  try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user) throw new Error("Unauthorized");
-
-    const data = await supabase
-      .from("chat_sessions")
-      .insert({ user_id: session.user.id, ...input })
-      .select()
-      .single();
-
-    return data;
-  } catch (error) {
-    throw new Error("Something went wrong");
-  }
+  return { success: true, data: { chatId: chat.id } };
 }
-
-📸 Screenshots (Add your images)
-/public/screenshots/home.png
-/public/screenshots/chat.png
-/public/screenshots/auth.png
-
-![Home](./public/screenshots/home.png)
-![Chat](./public/screenshots/chat.png)
-![Login](./public/screenshots/auth.png)
-
-🛠️ Troubleshooting
-❌ 500: “Something went wrong”
-
-Check missing environment variables on Vercel.
-
-❌ Session undefined
-
-Fix:
-
-NEXTAUTH_URL=https://yourproject.vercel.app
-
-❌ Login not working
-
-Set Supabase redirect URLs correctly.
-
-❌ OpenAI not working
-
-Ensure:
-
-OPENAI_API_KEY exists in Vercel environment
 
 🧑‍💻 Author
 
 Anurag Sharma
-AI Developer • Full-Stack Engineer
-GitHub: https://github.com/Axshul
+Full-Stack Developer • AI Engineer
+
 
 ⭐ Contribute
 
 PRs are welcome!
-Star ⭐ the repo if you like it.
+If you found this project useful — please ⭐ the repo!
 
-If you want, I can also create:
 
-✅ A stunning GitHub README banner
-✅ A typing animation header
-✅ Better badges and icons
-✅ A live demo link section
-
-Just tell me!
