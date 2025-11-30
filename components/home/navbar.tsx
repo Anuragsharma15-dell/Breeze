@@ -15,19 +15,19 @@ import { useEffect, useState } from "react";
 const socialLinks = [
   {
     name: "GitHub",
-    href: "https://github.com/yashrajvrma",
+    href: "https://github.com/Anuragsharma15-dell/Breeze",
     icon: GitHub,
     ariaLabel: "GitHub",
   },
   {
     name: "Linkedin",
-    href: "https://www.linkedin.com/in/theyashrajverma/",
+    href: "https://www.linkedin.com/in/anurag-sharma-22b518330/",
     icon: Linkedin,
     ariaLabel: "Linkedin",
   },
   {
     name: "Twitter",
-    href: "https://x.com/yashrajvrma",
+    href: "https://x.com/AnuragShar74342",
     icon: Twitter,
     ariaLabel: "X (Twitter)",
   },
