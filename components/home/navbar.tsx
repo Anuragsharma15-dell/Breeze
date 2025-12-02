@@ -12,6 +12,7 @@ import { useTheme } from "next-themes";
 import { useThemeStore } from "@/lib/store/themeStore";
 import { useEffect, useState } from "react";
 
+
 const socialLinks = [
   {
     name: "GitHub",
@@ -147,7 +148,11 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <nav className="flex-1 overflow-y-auto py-1">
+            <nav className="flex-1 overflow-y-auto py-1 group " 
+          
+            
+            
+            >
               <div className="grid text-base font-medium">
                 <Link href="/about" className="block py-2 px-1 ">
                   About
