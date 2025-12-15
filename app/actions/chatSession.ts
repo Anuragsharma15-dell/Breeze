@@ -63,7 +63,7 @@ export async function createChatSession(formData: FormData) {
   } catch (error: any) {
   console.error("createChatSession error:", error); // logs full error
   throw new Error(error.message || "Something went wrong");
-  throw new Error("Failed to create chat session");
+  
 }
 
 }
