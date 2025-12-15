@@ -30,6 +30,7 @@ export default function NewChat({ isCollapsed }: SidebarNavigationProps) {
             <Plus className="h-4 w-4" />
           </div>
           <span className="font-semibold">New chat</span>
+          <span className="sr-only">Create a new chat</span>
         </div>
       )}
     </div>
