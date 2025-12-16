@@ -1,5 +1,5 @@
 AI Chat Platform
-A full-stack AI chat application built with Next.js, Supabase, OpenAI & NextAuth
+A full-stack AI chat application built with Next.js, Supabase, OpenAI & NextAuth and google auth
 <p align="center"> <img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js" /> <img src="https://img.shields.io/badge/OpenAI-API-green?logo=openai" /> <img src="https://img.shields.io/badge/Supabase-Database-3ECF8E?logo=supabase" /> <img src="https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel" /> <img src="https://img.shields.io/badge/License-MIT-blue" /> </p>
 ✨ Features
 
