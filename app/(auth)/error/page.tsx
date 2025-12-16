@@ -23,7 +23,7 @@ export default function Error() {
       </svg>
       <div className="md:text-6xl text-5xl font-medium">Ooops...</div>
       <div className="text-xl font-medium mt-1 text-muted-foreground/80">
-        Something went wrong!
+        Something went wrong please try again later!
       </div>
       <div className="mt-1">
         <GoHome />
