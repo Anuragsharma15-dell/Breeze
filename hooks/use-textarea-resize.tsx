@@ -9,6 +9,8 @@ export function useTextareaResize(
 ) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  
+  
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useLayoutEffect(() => {
     const textArea = textareaRef.current;
@@ -35,3 +37,4 @@ export function useTextareaResize(
 
   return textareaRef;
 }
+
