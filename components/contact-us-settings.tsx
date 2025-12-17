@@ -8,10 +8,11 @@ export function ContactUsSettings() {
       <div className="font-sans">
         Have questions or need support? Reach out to us!
       </div>
+
       <div className="mt-4">
         Email : {""} 
-        <a href="mailto:yashrajv.work@gmail.com" className="text-blue-500">
-          yashrajv.work@gmail.com
+        <a href="mailto:anuragf863@gmail.com" className="text-blue-500">
+         anuragf863@gmail.com
         </a>
       </div>
     </div>
