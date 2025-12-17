@@ -4,10 +4,9 @@ import { MailIcon } from "lucide-react";
 
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Terms of Service",
-};
-
+export const metadata:Metadata = {
+  title:"Metadata loaded"
+}
 export default function Terms() {
   return (
     <div className="flex flex-col min-h-screen border-x md:mt-16 mt-12">
