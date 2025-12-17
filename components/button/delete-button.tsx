@@ -56,6 +56,7 @@ export function DeleteButton({ chatId }: ChatId) {
       </AlertDialogTrigger>
       <AlertDialogContent className="font-sans">
         <AlertDialogHeader>
+          
           <AlertDialogTitle>Delete Chat?</AlertDialogTitle>
           <AlertDialogDescription>
             Are you sure you want to delete this chat?
