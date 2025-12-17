@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 export const metadata:Metadata = {
   title:"Metadata loaded"
 }
+
 export default function Terms() {
   return (
     <div className="flex flex-col min-h-screen border-x md:mt-16 mt-12">
@@ -102,8 +103,12 @@ export default function Terms() {
               >
                 <MailIcon size={16} />
                 yashrajv.work@gmail.com
+                <p>
+                  (Please allow up to 48 hours for a response)
+                </p>
               </a>
             </p>
+
           </section>
         </div>
       </div>
