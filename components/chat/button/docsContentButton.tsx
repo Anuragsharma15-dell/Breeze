@@ -15,7 +15,8 @@ export default function DocsContent({ isLoading }: DocsContent) {
           {isLoading ? "Making edits..." : "Generated Docs"}
         </div>
         {!isLoading && (
-          <p className="text-muted-foreground text-xs">Click to view</p>
+          <p className="text-muted-foreground text-xs">Click to view!</p>
+
         )}
       </div>
 
