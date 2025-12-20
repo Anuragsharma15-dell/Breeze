@@ -95,6 +95,7 @@ export const exportToPdf = async ({
       list-style-type: decimal;
       line-height: 1.5;
       margin-bottom: 0.25rem;
+      border:2px solid black
     }
     
     .pdfStyles ul li p, .pdfStyles ol li p {
