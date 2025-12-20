@@ -10,6 +10,7 @@ declare module "@tiptap/core" {
   }
 }
 
+
 export const LineHeightExtension = Extension.create({
   name: "lineHeight",
   addOptions() {
