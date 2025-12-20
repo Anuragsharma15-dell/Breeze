@@ -13,7 +13,7 @@ export const updateMessageResponse = ({
   const endIdx = originalContent.indexOf(endTag);
 
   if (startIdx === -1 || endIdx === -1) {
-    console.warn("Document tags not found in message content.");
+    console.warn("Document tags not found in message content please try again later.");
     return originalContent;
   }
 
