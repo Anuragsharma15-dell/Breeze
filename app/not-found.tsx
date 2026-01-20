@@ -8,7 +8,7 @@ export default function NotFound() {
       </div>
       <div className="text-xl font-semibold md:mt-4 mt-2">Page Not Found</div>
       <div className="text-base text-muted-foreground text-center">
-        Oops! The page you're looking for doesn't exist or has been moved.
+        Oops! The page does not exist and might have been moved or deleted.
       </div>
       <div className="mt-1">
         <GoBack />
