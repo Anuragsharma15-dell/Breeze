@@ -27,5 +27,6 @@ export default function HeroImg() {
         />
       </div>
     </div>
+    
   );
 }
