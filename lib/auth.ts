@@ -1,17 +1,21 @@
-import { type DefaultSession, NextAuthOptions, Session } from "next-auth";
+import type { DefaultSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "@/db";
-import { redirect } from "next/navigation";
-import { signOut } from "next-auth/react";
 
+/* ============================
+   NextAuth Session Augmentation
+============================ */
 declare module "next-auth" {
   interface Session {
     user: {
-      id: string | null;
+      id: string;
     } & DefaultSession["user"];
   }
 }
 
+/* ============================
+   NextAuth Configuration
+============================ */
 export const authConfig: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -24,93 +28,89 @@ export const authConfig: NextAuthOptions = {
           access_type: "offline",
         },
       },
-      checks: ["pkce", "state"],
     }),
   ],
+
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
+
   callbacks: {
+    /* ============================
+       SIGN IN CALLBACK
+    ============================ */
     async signIn({ account, profile }) {
-      try {
-        if (!account || !profile) {
-          throw new Error("Invalid OAuth profile");
-        }
+      if (!account || !profile) return false;
 
-        const googleProfile = profile as {
-          email: string;
-          name?: string;
-          picture?: string;
-          email_verified?: boolean;
-        };
+      const googleProfile = profile as {
+        email?: string;
+        name?: string;
+        picture?: string;
+      };
 
-        // Validate email
-        if (!googleProfile.email || googleProfile.email_verified === false) {
-          throw new Error("Email is not verified");
-        }
-
-        await prisma.$transaction(async (tx) => {
-          await tx.user.upsert({
-            where: { email: googleProfile.email },
-            create: {
-              email: googleProfile.email,
-              name: googleProfile.name,
-              avatar: googleProfile.picture,
-            },
-            update: {
-              name: googleProfile.name,
-              avatar: googleProfile.picture,
-              updatedAt: new Date(),
-            },
-          });
-        });
-
-        return true;
-      } catch (error) {
-        console.error("SignIn error:", error);
+      if (!googleProfile.email) {
+        console.error("Google account has no email");
         return false;
       }
+
+      await prisma.user.upsert({
+        where: { email: googleProfile.email },
+        create: {
+          email: googleProfile.email,
+          name: googleProfile.name,
+          avatar: googleProfile.picture,
+          isActive: true,
+        },
+        update: {
+          name: googleProfile.name,
+          avatar: googleProfile.picture,
+          updatedAt: new Date(),
+        },
+      });
+
+      return true;
     },
 
+    /* ============================
+       SESSION CALLBACK
+    ============================ */
     async session({ session, token }) {
-      try {
-        if (session.user?.email) {
-          const user = await prisma.user.findUnique({
-            where: { email: session.user.email, isActive: true },
-            select: {
-              id: true,
-              name: true,
-              avatar: true,
-              email: true,
-            },
-          });
+      if (!session.user?.email) return session;
 
-          if (user) {
-            session.user.id = user.id;
-            session.user.name = user.name;
-            session.user.image = user.avatar || session.user.image;
-            session.user.email = user.email;
-          }
+      try {
+        const user = await prisma.user.findUnique({
+          where: { email: session.user.email },
+          select: {
+            id: true,
+            name: true,
+            avatar: true,
+            email: true,
+          },
+        });
+
+        if (user) {
+          session.user.id = user.id;
+          session.user.name = user.name ?? session.user.name;
+          session.user.image = user.avatar ?? session.user.image;
+          session.user.email = user.email;
         }
-        console.log("session");
 
         return session;
       } catch (error) {
-        console.error("Session error:", error);
-        throw new Error("Failed to create session");
+        console.error("Session callback error:", error);
+        return session; // NEVER throw here
       }
     },
 
-    async jwt({ token, user, account }) {
-      if (account?.access_token) {
-        token.accessToken = account.access_token;
-      }
-
+    /* ============================
+       JWT CALLBACK
+    ============================ */
+    async jwt({ token, user }) {
       if (user?.email) {
         const dbUser = await prisma.user.findUnique({
-          where: { email: user.email, isActive: true },
+          where: { email: user.email },
           select: { id: true },
         });
 
@@ -118,15 +118,17 @@ export const authConfig: NextAuthOptions = {
           token.sub = dbUser.id;
         }
       }
+
       return token;
     },
   },
+
   secret: process.env.NEXTAUTH_SECRET,
+
   pages: {
     signIn: "/signin",
-    signOut: "/",
     error: "/error",
   },
-  // debug: process.env.NODE_ENV === "development",
+
   useSecureCookies: process.env.NODE_ENV === "production",
 };
