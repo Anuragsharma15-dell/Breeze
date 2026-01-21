@@ -89,6 +89,7 @@ export function NavRecents() {
         if (lastPage.chats.length < lastPage.size) {
           return undefined;
         }
+        
 
         const totalChatsLoaded = allPages.flatMap((p) => p.chats).length;
 
