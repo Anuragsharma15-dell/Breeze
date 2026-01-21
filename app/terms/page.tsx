@@ -8,6 +8,7 @@ export const metadata:Metadata = {
   title:"Metadata loaded"
 }
 
+
 export default function Terms() {
   return (
     <div className="flex flex-col min-h-screen border-x md:mt-16 mt-12">
