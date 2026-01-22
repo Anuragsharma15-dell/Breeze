@@ -7,6 +7,7 @@ type GoBackProps = {
   className?: string;
 };
 
+
 export const GoBack = ({ className }: GoBackProps) => {
   const router = useRouter();
 
