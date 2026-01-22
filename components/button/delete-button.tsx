@@ -41,6 +41,7 @@ export function DeleteButton({ chatId }: ChatId) {
       });
     },
   });
+  
 
   const handleDelete = async (chatId: string) => {
     addToDelete(chatId);
