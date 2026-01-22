@@ -27,3 +27,5 @@ export default function DocsContent({ isLoading }: DocsContent) {
     </div>
   );
 }
+\
+
