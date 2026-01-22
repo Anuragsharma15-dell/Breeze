@@ -9,6 +9,7 @@ import logo from "@/public/assets/images/breeze-logo.png";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
+
 export default function Login() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function Login() {
       router.push("/chat");
     }
   }, [status]);
-  
+
 
   return (
     <div className="flex justify-center items-center  h-screen font-sans align-middle">
