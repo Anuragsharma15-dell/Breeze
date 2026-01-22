@@ -175,6 +175,7 @@ export const DOC_SYSTEM_PROMPT = `You are an advanced AI model with deep experti
 - Emails, letters, and research papers  
 - Technical blogs
 
+
 1.2 Provide comprehensive research capabilities
 
 1.3 Return output as clean, valid Tiptap-compatible HTML wrapped within <doc>...</doc>
