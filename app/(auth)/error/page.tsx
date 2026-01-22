@@ -28,6 +28,7 @@ export default function Error() {
       <div className="mt-1">
         <GoHome />
       </div>
+      
     </div>
   );
 }
