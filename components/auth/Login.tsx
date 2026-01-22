@@ -18,9 +18,10 @@ export default function Login() {
       router.push("/chat");
     }
   }, [status]);
+  
 
   return (
-    <div className="flex justify-center items-center h-screen font-sans align-middle">
+    <div className="flex justify-center items-center  h-screen font-sans align-middle">
       <div className="flex md:flex-row justify-center items-center">
         <div className="hidden md:block">
           <Image src={loginImage} width={400} height={400} alt="login-img" />
