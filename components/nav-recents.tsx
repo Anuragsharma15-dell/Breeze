@@ -100,11 +100,12 @@ export function NavRecents() {
         const nextPage = lastPage.page + 1;
         return nextPage;
       },
-      
+
       enabled: !!session,
       // refetchOnWindowFocus: false,
       // refetchOnMount: false,
     });
+    
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage && !isLoading) {
