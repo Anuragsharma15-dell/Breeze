@@ -14,9 +14,9 @@ export default function DocsContent({ isLoading }: DocsContent) {
       <div className="flex flex-col z-10 w-full">
         <div className="text-sm font-medium">
           {isLoading ? "Making edits..." : "Generated Docs"}
-          
+
         </div>
-        {!isLoading && (
+        {!isLoading &&  (
           <p className="text-muted-foreground text-xs">Click to view!</p>
 
         )}
