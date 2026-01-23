@@ -7,6 +7,7 @@ type DocsContent = {
   isLoading: boolean;
 };
 
+
 export default function DocsContent({ isLoading }: DocsContent) {
   return (
     <div className="relative bg-background text-foreground px-6 py-4 rounded-lg flex items-center justify-between border overflow-hidden w-full">
