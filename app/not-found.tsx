@@ -10,6 +10,7 @@ export default function NotFound() {
       <div className="text-base text-muted-foreground text-center">
         Oops! The page does not exist and might have been moved or deleted. 
         
+        
       </div>
       <div className="mt-1">
         <GoBack />
