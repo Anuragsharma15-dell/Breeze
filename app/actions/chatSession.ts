@@ -27,12 +27,15 @@ export async function createChatSession(formData: FormData) {
       error: "Free limit reached. Try again later",
     };
   }
-  
+
 
   try {
     const { text } = await generateText({
+
       model: openai("gpt-4o-mini"),
+
       system: TITLE_SYSTEM_PROMPT,
+      
       prompt: message as string,
     });
 
