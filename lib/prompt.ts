@@ -358,3 +358,4 @@ Would you like me to add a summary, appendix, or visuals?
 - ✅ Research-backed with accurate info  
 - ✅ Avoids repetitive or vague language
 `;
+
