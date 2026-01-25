@@ -75,7 +75,7 @@ export const authConfig: NextAuthOptions = {
     },
 
     /* ============================
-       SESSION CALLBACK
+       SESSION CALLBACK  
     ============================ */
     async session({ session, token }) {
       if (!session.user?.email) return session;
