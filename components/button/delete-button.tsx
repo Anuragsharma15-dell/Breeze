@@ -36,6 +36,7 @@ export function DeleteButton({ chatId }: ChatId) {
       queryClient.invalidateQueries({
         queryKey: ["recentChats"],
       });
+      
       queryClient.invalidateQueries({
         queryKey: ["favChats"],
       });
