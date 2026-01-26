@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 type GoBackProps = {
   className?: string;
   
+  
 };
 
 
