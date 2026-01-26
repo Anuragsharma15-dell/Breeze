@@ -11,6 +11,7 @@ export function ContactUsSettings() {
         Have questions or need support? Reach out to us!
       </div>
 
+
       <div className="mt-4">
         Email : {""} 
         <a href="mailto:anuragf863@gmail.com" className="text-blue-500">
