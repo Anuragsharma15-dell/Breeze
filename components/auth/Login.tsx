@@ -72,7 +72,9 @@ export default function Login() {
                   <Link href="/privacy">Privacy Policy</Link>
                 </span>
                 .
+                
               </div>
+
             </div>
           </div>
         </div>
