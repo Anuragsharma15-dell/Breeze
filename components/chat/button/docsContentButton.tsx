@@ -25,6 +25,7 @@ export default function DocsContent({ isLoading }: DocsContent) {
       <div className="w-[60px]  min-w-[100px]"></div>
       <div className="absolute -bottom-3 right-4 rotate-[15deg] text-foreground">
         <Image   src={notesIcon} alt="notes"  width={60} height={60} />
+        
       </div>
     </div>
   );
