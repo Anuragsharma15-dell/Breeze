@@ -32,6 +32,7 @@ export function useTextareaResize(
 
       // Set the final height
       textArea.style.height = `${scrollHeight + 2}px`;
+      
     }
   }, [textareaRef, value, rows]);
   
