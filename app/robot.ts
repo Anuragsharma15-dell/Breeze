@@ -10,3 +10,5 @@ export default function robot(): MetadataRoute.Robots {
     sitemap: "https://www.breezeai.live/sitemap.xml",
   };
 }
+
+
