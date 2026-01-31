@@ -130,6 +130,7 @@ export const authConfig: NextAuthOptions = {
     signIn: "/signin",
     error: "/error",
   },
+  
 
   useSecureCookies: process.env.NODE_ENV === "production",
 };
