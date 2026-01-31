@@ -12,6 +12,7 @@ export function ContactUsSettings() {
       </div>
 
 
+
       <div className="mt-4">
         Email : {""} 
         <a href="mailto:anuragf863@gmail.com" className="text-blue-500">
