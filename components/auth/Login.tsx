@@ -61,6 +61,28 @@ export default function Login() {
               </span>
             </Button>
 
+
+            <div className="flex flex-col justify-center items-center mt-2">
+            <Button
+              variant="outline"
+              className=" rounded-xl px-10"
+              size="lg"
+              onClick={async () =>
+                // await signIn("google")
+                await signIn("github", { callbackUrl: "/chat" })
+              }
+            >
+              <span className="flex flex-row gap-x-2">
+                <img
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  alt="Github"
+                  className="w-5 h-5"
+                />
+                Continue with Github 
+              </span>
+            </Button>
+</div>
+
             <div className="mt-4">
               <div className="text-muted-foreground text-center text-xs text-wrap md:mx-16 mx-5">
                 By clicking continue, you agree to our{" "}
