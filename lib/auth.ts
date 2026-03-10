@@ -1,6 +1,7 @@
 import type { DefaultSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "@/db";
+import GitHubProvider from "next-auth/providers/github";
 
 /* ============================
    NextAuth Session Augmentation
@@ -29,6 +30,10 @@ export const authConfig: NextAuthOptions = {
           access_type: "offline",
         },
       },
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
   ],
 
