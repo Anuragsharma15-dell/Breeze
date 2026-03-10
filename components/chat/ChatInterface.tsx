@@ -2,11 +2,7 @@
 
 import ChatMessage from "@/components/chat/ChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  ChatInput,
-  ChatInputSubmit,
-  ChatInputTextArea,
-} from "@/components/chat-input";
+import { ChatInput, ChatInputSubmit, ChatInputTextArea } from "@/components/chat-input";
 import { useChat } from "@ai-sdk/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -21,6 +17,7 @@ import { EditorDrawer } from "../editor/EditorDrawer";
 import { useEditorStore } from "@/lib/store/editorStore";
 import { useSidebar } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
+import { Paperclip } from "lucide-react";
 
 type Messages = {
   id: string;
@@ -67,13 +64,15 @@ export default function ChatInterface() {
   const [firstMsg, setFirstMsg] = useState<Messages[]>();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasAppendedFirstMsg = useRef(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const isEditorDrawerOpen = useEditorStore((state) => state.isDrawerOpen); // Add this line
   const closeDrawer = useEditorStore((state) => state.closeDrawer); // Add this line
 
   const queryClient = useQueryClient();
 
-  const { chatId } = params;
+  const chatId = params?.chatId as string;
 
   // fetch existing thread message
   const {
@@ -181,6 +180,38 @@ export default function ChatInterface() {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      setUploading(true);
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const data = await response.json();
+      console.log("File uploaded:", data);
+      toast.success("File uploaded successfully");
+    } catch (error: any) {
+      console.error("Error uploading file:", error);
+      toast.error(error?.message || "File upload failed");
+    } finally {
+      setUploading(false);
+      event.target.value = "";
+    }
   };
 
   // Handle chat input submit
@@ -310,6 +341,20 @@ export default function ChatInterface() {
           // className="relative w-full h-full focus:outline-none ring-0 border md:min-h-[120px] min-h-[130px] max-h-[300px] py-0 min-h-[60px] max-h-[180px]"
           rows={2}
         >
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            className="shrink-0 absolute top-2 left-2 rounded-lg p-1.5 sm:m-2 m-1 h-fit text-muted-foreground hover:bg-muted"
+          >
+            <Paperclip size={16} />
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            className="hidden"
+            onChange={handleFileChange}
+          />
           <ChatInputTextArea
             placeholder="How can Breeze help you today?"
             className="my-0 md:placeholder:text-base placeholder:text-sm  placeholder:font-normal"

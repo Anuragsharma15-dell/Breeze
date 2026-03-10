@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useTextareaResize } from "@/hooks/use-textarea-resize";
 import { ArrowRightIcon, ArrowUpIcon, SquareIcon } from "lucide-react";
 import type React from "react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 
 interface ChatInputContextValue {
   value?: string;
