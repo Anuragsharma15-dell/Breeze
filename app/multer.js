@@ -10,7 +10,7 @@ if (!fs.existsSync(uploadDir)) { //checking if it exists
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-const storage = multer.diskStorage({
+const storage = multer.diskStorage({  // multer configuration
   destination: (_req, _file, cb) => {
     cb(null, uploadDir);
   },
