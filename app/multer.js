@@ -7,7 +7,7 @@ const uploadDir = path.join(process.cwd(), "uploads");// getting its path to joi
 
 
 if (!fs.existsSync(uploadDir)) { //checking if it exists 
-  fs.mkdirSync(uploadDir, { recursive: true });
+  fs.mkdirSync(uploadDir, { recursive: true });   // recursively creating dir 
 }
 
 const storage = multer.diskStorage({  // multer configuration
