@@ -78,6 +78,8 @@ export const authConfig: NextAuthOptions = {
 
       return true;
     },
+    
+    
 
     /* ============================
        SESSION CALLBACK  
@@ -139,3 +141,16 @@ export const authConfig: NextAuthOptions = {
 
   useSecureCookies: process.env.NODE_ENV === "production",
 };
+
+export async function  finduser ({}) {
+  const user  = req.user;
+  
+
+  await prisma.user.findUnique({
+    where:{
+      id:user.id,
+
+    }
+  })
+  
+}
