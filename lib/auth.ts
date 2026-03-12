@@ -142,13 +142,15 @@ export const authConfig: NextAuthOptions = {
   useSecureCookies: process.env.NODE_ENV === "production",
 };
 
-export async function  finduser ({}) {
-  const user  = req.user;
-  
+
+
+export async function  finduser () {
+
 
   await prisma.user.findUnique({
     where:{
-      id:user.id,
+      email:user.email;
+      
 
     }
   })
