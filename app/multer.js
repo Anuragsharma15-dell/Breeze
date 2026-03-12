@@ -12,7 +12,7 @@ if (!fs.existsSync(uploadDir)) { //checking if it exists
 
 const storage = multer.diskStorage({  // multer configuration
   destination: (_req, _file, cb) => {
-    cb(null, uploadDir);
+    cb(null, uploadDir);   // destination to upload
   },
   filename: (_req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
